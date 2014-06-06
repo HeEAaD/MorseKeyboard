@@ -33,28 +33,9 @@ class KeyboardViewController: UIInputViewController {
         self.view = NSBundle.mainBundle().loadNibNamed("KeyboardView", owner: self.view, options: nil)[0] as UIView
 
         self.dahDitLabel = self.view.viewWithTag(1) as UILabel
-//        self.dahDitLabel.text = "···−−−···"
 
         self.nextKeyboardButton = self.view.viewWithTag(2) as UIButton
         self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-
-//        // Perform custom UI setup here
-//        self.nextKeyboardButton = UIButton.buttonWithType(.System) as UIButton
-//    
-////        self.nextKeyboardButton.setTitle(NSLocalizedString("Next Keyboard", comment: "Title for 'Next Keyboard' button"), forState: .Normal)
-//        self.nextKeyboardButton.sizeToFit()
-//        self.nextKeyboardButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-//    
-//        self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
-//        
-//        self.view.addSubview(self.nextKeyboardButton)
-//    
-//        var nextKeyboardButtonLeftSideConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Left, relatedBy: .Equal, toItem: self.view, attribute: .Left, multiplier: 1.0, constant: 0.0)
-//        var nextKeyboardButtonBottomConstraint = NSLayoutConstraint(item: self.nextKeyboardButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
-//        self.view.addConstraints([nextKeyboardButtonLeftSideConstraint, nextKeyboardButtonBottomConstraint])
-
-
-//
 
         super.viewDidLoad()
     }
@@ -79,6 +60,7 @@ class KeyboardViewController: UIInputViewController {
             textColor = UIColor.blackColor()
         }
 //        self.nextKeyboardButton.setTitleColor(textColor, forState: .Normal)
+
     }
 
     override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
@@ -91,8 +73,6 @@ class KeyboardViewController: UIInputViewController {
         }
 
         let pauseLength = touchedDown - touchedUp
-
-        //        println("pause: \(pauseLength)")
 
         letterTimer?.invalidate()
     }
@@ -115,23 +95,22 @@ class KeyboardViewController: UIInputViewController {
 
     }
 
+    func timerFired(timer: NSTimer) {
+        self.letterFinished()
+    }
+
     func letterFinished() {
 
-        let letter = self.intepretDahDitSequence(dahDitSequence)
-//        println(" =  \(letter)")
-//        inputTextField.text = inputTextField.text + letter
-
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
+        if let letter = intepretDahDitSequence(dahDitSequence) {
+            var proxy = textDocumentProxy as UITextDocumentProxy
+            proxy.insertText("\(letter)")
+        }
 
         dahDitSequence = []
         self.dahDitLabel.text = ""
     }
 
-    func timerFired(timer: NSTimer) {
-        self.letterFinished()
-    }
-
-    func intepretDahDitSequence(sequence: Bool[]) -> Character {
+    func intepretDahDitSequence(sequence: Bool[]) -> Character? {
 
         var letter:Character?
 
@@ -143,10 +122,10 @@ class KeyboardViewController: UIInputViewController {
             case [true,true,true]: letter = "S"
             case [false,false,false]: letter = "O"
             default:
-                letter = "^"
+                letter = nil
         }
         
-        return letter!
+        return letter
     }
 
 }
