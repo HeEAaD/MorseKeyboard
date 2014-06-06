@@ -9,7 +9,9 @@
 import XCTest
 
 class MorseTests: XCTestCase {
-    
+
+    var keyboardViewController = KeyboardViewController(nibName: nil, bundle: nil)
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,12 +21,17 @@ class MorseTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+
+    func testintepretDahDitSequence() {
+
+        XCTAssertEqual(keyboardViewController.intepretDahDitSequence([true,false])!, "A", "\"A\" sequence")
+
+        self.measureBlock() {
+            var result = self.keyboardViewController.intepretDahDitSequence([true,false])
+        }
+
     }
-    
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
