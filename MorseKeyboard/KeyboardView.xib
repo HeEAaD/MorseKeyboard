@@ -11,7 +11,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S62-xx-Tt0">
-                    <rect key="frame" x="20" y="274" width="30" height="30"/>
+                    <rect key="frame" x="20" y="263" width="30" height="41"/>
+                    <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="20"/>
                     <state key="normal" title="🌐">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -31,6 +32,16 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label appearanceType="aqua" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⇪" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73A-el-8hG">
+                    <rect key="frame" x="20" y="221" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="Jxt-YV-e3v"/>
+                        <constraint firstAttribute="height" constant="30" id="m6W-u3-Dpa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.043295893157665397" green="0.090801720240972633" blue="0.35975366709183676" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -42,7 +53,9 @@
                 <constraint firstAttribute="centerX" secondItem="ebF-nT-ElZ" secondAttribute="centerX" id="fcR-rY-afS"/>
                 <constraint firstItem="CQb-Fc-5yM" firstAttribute="top" secondItem="ebF-nT-ElZ" secondAttribute="bottom" constant="8" symbolic="YES" id="iRs-pw-VTn"/>
                 <constraint firstAttribute="trailing" secondItem="CQb-Fc-5yM" secondAttribute="trailing" constant="20" symbolic="YES" id="kly-Z6-KXT"/>
+                <constraint firstItem="S62-xx-Tt0" firstAttribute="top" secondItem="73A-el-8hG" secondAttribute="bottom" constant="12" id="pLQ-h7-Z6L"/>
                 <constraint firstAttribute="centerY" secondItem="CQb-Fc-5yM" secondAttribute="centerY" id="weG-dg-HP6"/>
+                <constraint firstItem="73A-el-8hG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="ziN-mw-gY3"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="277" y="27"/>

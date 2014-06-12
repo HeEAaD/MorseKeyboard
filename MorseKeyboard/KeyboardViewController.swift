@@ -8,6 +8,8 @@
 
 import UIKit
 
+let ditTime = 0.15
+
 class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var dahDitLabel: UILabel
@@ -16,7 +18,7 @@ class KeyboardViewController: UIInputViewController {
     var touchedDown:NSTimeInterval = 0.0
     var touchedUp:NSTimeInterval = 0.0
     var morseSequence: MorseSequence = MorseSequence()
-    var letterTimer:NSTimer?
+    var pauseTimer:NSTimer?
 
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -74,7 +76,12 @@ class KeyboardViewController: UIInputViewController {
 
         let pauseLength = touchedDown - touchedUp
 
-        letterTimer?.invalidate()
+        if pauseLength > ditTime * 7 {
+            var proxy = textDocumentProxy as UITextDocumentProxy
+            proxy.insertText(" ")
+        }
+
+        pauseTimer?.invalidate()
     }
 
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
@@ -83,17 +90,17 @@ class KeyboardViewController: UIInputViewController {
         touchedUp = touch.timestamp;
         let touchLength = touchedUp - touchedDown
 
-        let symbol: MorseSymbol = (touchLength < 0.15) ? .Dit : .Dah
+        let symbol: MorseSymbol = (touchLength < ditTime) ? .Dit : .Dah
 
         morseSequence.append(symbol)
 
         dahDitLabel.text = dahDitLabel.text + symbol.toRaw()
 
-        letterTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,target: self, selector: "timerFired:", userInfo: nil, repeats: false)
+        pauseTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,target: self, selector: "pauseTimerFired:", userInfo: nil, repeats: false)
 
     }
 
-    func timerFired(timer: NSTimer) {
+    func pauseTimerFired(timer: NSTimer) {
         self.letterFinished()
     }
 
