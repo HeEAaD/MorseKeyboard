@@ -9,4 +9,3 @@ Known Issues
 - no shift function
 - no backwards function
 - ugly interface
-- very limited morse alphabet
