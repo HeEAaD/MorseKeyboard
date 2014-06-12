@@ -15,7 +15,7 @@ class KeyboardViewController: UIInputViewController {
 
     var touchedDown:NSTimeInterval = 0.0
     var touchedUp:NSTimeInterval = 0.0
-    var dahDitSequence:Bool[] = []
+    var morseSequence: MorseSequence = MorseSequence()
     var letterTimer:NSTimer?
 
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -24,7 +24,7 @@ class KeyboardViewController: UIInputViewController {
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
-    
+
         // Add custom view sizing constraints here
     }
 
@@ -83,13 +83,11 @@ class KeyboardViewController: UIInputViewController {
         touchedUp = touch.timestamp;
         let touchLength = touchedUp - touchedDown
 
-        let dit = touchLength < 0.15
+        let symbol: MorseSymbol = (touchLength < 0.15) ? .Dit : .Dah
 
-        dahDitSequence.append(dit)
+        morseSequence.append(symbol)
 
-        let symbol = dit ? "·" : "−"
-
-        self.dahDitLabel.text = self.dahDitLabel.text + symbol
+        dahDitLabel.text = dahDitLabel.text + symbol.toRaw()
 
         letterTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,target: self, selector: "timerFired:", userInfo: nil, repeats: false)
 
@@ -101,31 +99,13 @@ class KeyboardViewController: UIInputViewController {
 
     func letterFinished() {
 
-        if let letter = intepretDahDitSequence(dahDitSequence) {
+        if let letter = morseSequence.intepretation {
             var proxy = textDocumentProxy as UITextDocumentProxy
             proxy.insertText("\(letter)")
         }
 
-        dahDitSequence = []
-        self.dahDitLabel.text = ""
-    }
-
-    func intepretDahDitSequence(sequence: Bool[]) -> Character? {
-
-        var letter:Character?
-
-        /* fancy pattern matching */
-        switch dahDitSequence {
-            case [true,false]: letter = "A"
-            case [false,true,true,true]: letter = "B"
-            case [true]: letter = "E"
-            case [true,true,true]: letter = "S"
-            case [false,false,false]: letter = "O"
-            default:
-                letter = nil
-        }
-        
-        return letter
+        morseSequence.clear()
+        dahDitLabel.text = ""
     }
 
 }

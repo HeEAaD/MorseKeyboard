@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F94D53051949B7B6008781F4 /* MorseSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94D53041949B7B6008781F4 /* MorseSequence.swift */; };
+		F94D53061949B7B6008781F4 /* MorseSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94D53041949B7B6008781F4 /* MorseSequence.swift */; };
+		F94D53071949B7B6008781F4 /* MorseSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94D53041949B7B6008781F4 /* MorseSequence.swift */; };
 		F99933FE1941010D008781F4 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E944ED193E227F008781F4 /* KeyboardViewController.swift */; };
 		F9E944C9193E2272008781F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E944C8193E2272008781F4 /* AppDelegate.swift */; };
 		F9E944CB193E2272008781F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E944CA193E2272008781F4 /* ViewController.swift */; };
@@ -58,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F94D53041949B7B6008781F4 /* MorseSequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MorseSequence.swift; sourceTree = "<group>"; };
 		F9E944C3193E2272008781F4 /* Morse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Morse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E944C7193E2272008781F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9E944C8193E2272008781F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,9 +102,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F94D53081949B7C0008781F4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F94D53041949B7B6008781F4 /* MorseSequence.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		F9E944BA193E2272008781F4 = {
 			isa = PBXGroup;
 			children = (
+				F94D53081949B7C0008781F4 /* Model */,
 				F9E944C5193E2272008781F4 /* Morse */,
 				F9E944D8193E2272008781F4 /* MorseTests */,
 				F9E944EA193E227F008781F4 /* MorseKeyboard */,
@@ -306,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9E944CB193E2272008781F4 /* ViewController.swift in Sources */,
+				F94D53051949B7B6008781F4 /* MorseSequence.swift in Sources */,
 				F9E944C9193E2272008781F4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9E944DC193E2272008781F4 /* MorseTests.swift in Sources */,
+				F94D53061949B7B6008781F4 /* MorseSequence.swift in Sources */,
 				F99933FE1941010D008781F4 /* KeyboardViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -324,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9E944EE193E227F008781F4 /* KeyboardViewController.swift in Sources */,
+				F94D53071949B7B6008781F4 /* MorseSequence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
