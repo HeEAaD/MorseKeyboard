@@ -14,11 +14,17 @@ class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var dahDitLabel: UILabel
     @IBOutlet var nextKeyboardButton: UIButton
+    @IBOutlet var spaceButton: UIButton
+    @IBOutlet var returnButton: UIButton
+    @IBOutlet var delButton: UIButton
 
     var touchedDown:NSTimeInterval = 0.0
     var touchedUp:NSTimeInterval = 0.0
     var morseSequence: MorseSequence = MorseSequence()
     var pauseTimer:NSTimer?
+    var typedTextDocumentProxy: UITextDocumentProxy {
+        return textDocumentProxy as UITextDocumentProxy
+    }
 
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -32,12 +38,21 @@ class KeyboardViewController: UIInputViewController {
 
     override func viewDidLoad() {
 
-        self.view = NSBundle.mainBundle().loadNibNamed("KeyboardView", owner: self.view, options: nil)[0] as UIView
+        view = NSBundle.mainBundle().loadNibNamed("KeyboardView", owner: view, options: nil)[0] as UIView
 
-        self.dahDitLabel = self.view.viewWithTag(1) as UILabel
+        dahDitLabel = view.viewWithTag(1) as UILabel
 
-        self.nextKeyboardButton = self.view.viewWithTag(2) as UIButton
-        self.nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+        nextKeyboardButton = view.viewWithTag(2) as UIButton
+        nextKeyboardButton.addTarget(self, action: "advanceToNextInputMode", forControlEvents: .TouchUpInside)
+
+        spaceButton = view.viewWithTag(3) as UIButton
+        spaceButton.addTarget(self, action: "spaceButtonTouched", forControlEvents: .TouchUpInside)
+
+        returnButton = view.viewWithTag(4) as UIButton
+        returnButton.addTarget(self, action: "dismissKeyboard", forControlEvents: .TouchUpInside)
+
+        delButton = view.viewWithTag(5) as UIButton
+        delButton.addTarget(self, action: "delButtonTouched", forControlEvents: .TouchUpInside)
 
         super.viewDidLoad()
     }
@@ -67,6 +82,8 @@ class KeyboardViewController: UIInputViewController {
 
     override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
 
+        pauseTimer?.invalidate()
+        
         let touch = touches.anyObject() as UITouch
         touchedDown = touch.timestamp
 
@@ -75,13 +92,8 @@ class KeyboardViewController: UIInputViewController {
         }
 
         let pauseLength = touchedDown - touchedUp
+        let context = typedTextDocumentProxy.documentContextBeforeInput
 
-        if pauseLength > ditTime * 7 {
-            var proxy = textDocumentProxy as UITextDocumentProxy
-            proxy.insertText(" ")
-        }
-
-        pauseTimer?.invalidate()
     }
 
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
@@ -107,12 +119,18 @@ class KeyboardViewController: UIInputViewController {
     func letterFinished() {
 
         if let letter = morseSequence.intepretation {
-            var proxy = textDocumentProxy as UITextDocumentProxy
-            proxy.insertText("\(letter)")
+            typedTextDocumentProxy.insertText("\(letter)")
         }
 
         morseSequence.clear()
         dahDitLabel.text = ""
     }
 
+    func spaceButtonTouched() {
+        typedTextDocumentProxy.insertText(" ")
+    }
+
+    func delButtonTouched() {
+        typedTextDocumentProxy.deleteBackward()
+    }
 }
