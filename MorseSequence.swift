@@ -15,7 +15,7 @@ enum MorseSymbol : Character {
 
 class MorseSequence : Printable {
 
-    var symbols : MorseSymbol[]
+    var symbols : [MorseSymbol]
 
     var description: String {
         return symbols.reduce("") { $0 + $1.toRaw() }
@@ -91,7 +91,7 @@ class MorseSequence : Printable {
         symbols = []
     }
 
-    init(symbols: MorseSymbol[]) {
+    init(symbols: [MorseSymbol]) {
         self.symbols = symbols
     }
 
